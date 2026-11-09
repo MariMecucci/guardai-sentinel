@@ -1,0 +1,206 @@
+{
+  "dataset_size": 32,
+  "model": "deterministic-heuristics-only",
+  "tp": 17,
+  "fp": 1,
+  "tn": 11,
+  "fn": 3,
+  "precision": 0.9444,
+  "recall": 0.85,
+  "f1": 0.8947,
+  "notice": "Synthetic, hand-labeled educational dataset; not representative of real-world vulnerability detection or Gemini.",
+  "cases": [
+    {
+      "case_id": "py-fstring-1",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-fstring-2",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-fstring-3",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-fstring-4",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-fstring-5",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-concat-1",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-concat-2",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-concat-3",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-concat-4",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-concat-5",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-format-unsafe",
+      "predicted": false,
+      "expected": true,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-mod-unsafe",
+      "predicted": false,
+      "expected": true,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-command-string",
+      "predicted": false,
+      "expected": true,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-shell-1",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-shell-2",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-shell-3",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-shell-4",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "sql-template-1",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "sql-template-2",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "sql-template-3",
+      "predicted": true,
+      "expected": true,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-query-param-1",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-query-param-2",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-query-param-3",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-query-param-4",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-constant-1",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-constant-2",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-constant-3",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "sql-safe-1",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "sql-safe-2",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "sql-safe-3",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    },
+    {
+      "case_id": "py-controlled-fstring",
+      "predicted": true,
+      "expected": false,
+      "finding_count": 1
+    },
+    {
+      "case_id": "py-safe-call",
+      "predicted": false,
+      "expected": false,
+      "finding_count": 0
+    }
+  ]
+}

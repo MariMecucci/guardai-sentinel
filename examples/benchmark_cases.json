@@ -1,0 +1,194 @@
+[
+  {
+    "id": "py-fstring-1",
+    "filename": "app.py",
+    "source": "username = input()\nquery = f\"SELECT * FROM accounts WHERE code='1' AND user={username}\"\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-fstring-2",
+    "filename": "app.py",
+    "source": "username = input()\nquery = f\"SELECT * FROM accounts WHERE code='2' AND user={username}\"\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-fstring-3",
+    "filename": "app.py",
+    "source": "username = input()\nquery = f\"SELECT * FROM accounts WHERE code='3' AND user={username}\"\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-fstring-4",
+    "filename": "app.py",
+    "source": "username = input()\nquery = f\"SELECT * FROM accounts WHERE code='4' AND user={username}\"\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-fstring-5",
+    "filename": "app.py",
+    "source": "username = input()\nquery = f\"SELECT * FROM accounts WHERE code='5' AND user={username}\"\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-concat-1",
+    "filename": "db.py",
+    "source": "user=input()\nquery=\"SELECT id FROM users WHERE username=\" + user\n# case 1\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-concat-2",
+    "filename": "db.py",
+    "source": "user=input()\nquery=\"SELECT id FROM users WHERE username=\" + user\n# case 2\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-concat-3",
+    "filename": "db.py",
+    "source": "user=input()\nquery=\"SELECT id FROM users WHERE username=\" + user\n# case 3\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-concat-4",
+    "filename": "db.py",
+    "source": "user=input()\nquery=\"SELECT id FROM users WHERE username=\" + user\n# case 4\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-concat-5",
+    "filename": "db.py",
+    "source": "user=input()\nquery=\"SELECT id FROM users WHERE username=\" + user\n# case 5\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-format-unsafe",
+    "filename": "app.py",
+    "source": "user=input()\nq = 'SELECT * FROM users WHERE user={}'.format(user)\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-mod-unsafe",
+    "filename": "db.py",
+    "source": "q = 'SELECT * FROM users WHERE name=%s' % user\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-command-string",
+    "filename": "exec.py",
+    "source": "import os\nos.system('echo ' + input())\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-shell-1",
+    "filename": "task.py",
+    "source": "import subprocess\ncommand = input()\nsubprocess.run(command, shell=True)\n# case 1\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-shell-2",
+    "filename": "task.py",
+    "source": "import subprocess\ncommand = input()\nsubprocess.run(command, shell=True)\n# case 2\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-shell-3",
+    "filename": "task.py",
+    "source": "import subprocess\ncommand = input()\nsubprocess.run(command, shell=True)\n# case 3\n",
+    "is_risky": true
+  },
+  {
+    "id": "py-shell-4",
+    "filename": "task.py",
+    "source": "import subprocess\ncommand = input()\nsubprocess.run(command, shell=True)\n# case 4\n",
+    "is_risky": true
+  },
+  {
+    "id": "sql-template-1",
+    "filename": "q.sql",
+    "source": "SELECT * FROM accounts WHERE email = '${user_email}' AND status='1';",
+    "is_risky": true
+  },
+  {
+    "id": "sql-template-2",
+    "filename": "q.sql",
+    "source": "SELECT * FROM accounts WHERE email = '${user_email}' AND status='2';",
+    "is_risky": true
+  },
+  {
+    "id": "sql-template-3",
+    "filename": "q.sql",
+    "source": "SELECT * FROM accounts WHERE email = '${user_email}' AND status='3';",
+    "is_risky": true
+  },
+  {
+    "id": "py-query-param-1",
+    "filename": "db.py",
+    "source": "cursor.execute('SELECT id FROM users WHERE id=?', (1,))",
+    "is_risky": false
+  },
+  {
+    "id": "py-query-param-2",
+    "filename": "db.py",
+    "source": "cursor.execute('SELECT id FROM users WHERE id=?', (2,))",
+    "is_risky": false
+  },
+  {
+    "id": "py-query-param-3",
+    "filename": "db.py",
+    "source": "cursor.execute('SELECT id FROM users WHERE id=?', (3,))",
+    "is_risky": false
+  },
+  {
+    "id": "py-query-param-4",
+    "filename": "db.py",
+    "source": "cursor.execute('SELECT id FROM users WHERE id=?', (4,))",
+    "is_risky": false
+  },
+  {
+    "id": "py-constant-1",
+    "filename": "db.py",
+    "source": "query='SELECT * FROM users WHERE id=1'\n",
+    "is_risky": false
+  },
+  {
+    "id": "py-constant-2",
+    "filename": "db.py",
+    "source": "query='SELECT * FROM users WHERE id=2'\n",
+    "is_risky": false
+  },
+  {
+    "id": "py-constant-3",
+    "filename": "db.py",
+    "source": "query='SELECT * FROM users WHERE id=3'\n",
+    "is_risky": false
+  },
+  {
+    "id": "sql-safe-1",
+    "filename": "q.sql",
+    "source": "SELECT * FROM users WHERE id = ? AND status = 1;",
+    "is_risky": false
+  },
+  {
+    "id": "sql-safe-2",
+    "filename": "q.sql",
+    "source": "SELECT * FROM users WHERE id = ? AND status = 2;",
+    "is_risky": false
+  },
+  {
+    "id": "sql-safe-3",
+    "filename": "q.sql",
+    "source": "SELECT * FROM users WHERE id = ? AND status = 3;",
+    "is_risky": false
+  },
+  {
+    "id": "py-controlled-fstring",
+    "filename": "db.py",
+    "source": "table = 'users'\nquery=f'SELECT * FROM {table}'\n",
+    "is_risky": false
+  },
+  {
+    "id": "py-safe-call",
+    "filename": "task.py",
+    "source": "import subprocess\nsubprocess.run(['echo','safe'], shell=False)\n",
+    "is_risky": false
+  }
+]

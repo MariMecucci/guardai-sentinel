@@ -1,0 +1,25 @@
+{
+  "filename": "vulnerable_login.py",
+  "language": "python",
+  "lines_scanned": 7,
+  "findings": [
+    {
+      "rule_id": "PY-SQL-001",
+      "title": "Possível SQL Injection por interpolação de SQL",
+      "severity": "high",
+      "line": 6,
+      "evidence": "query = f\"SELECT id FROM users WHERE username = '{username}'\"",
+      "why": "A consulta SQL aparenta incorporar valores dinâmicos na própria sintaxe.",
+      "remediation": "Use consultas parametrizadas com placeholders e parâmetros separados, e valide no contexto da aplicação.",
+      "source": "static",
+      "confidence": "medium",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+    }
+  ],
+  "finding_count": 1,
+  "model": null,
+  "ai_summary": null,
+  "ai_suggestions": [],
+  "warnings": [],
+  "disclaimer": "Triagem estática educacional, não uma auditoria nem prova de ausência de vulnerabilidades."
+}

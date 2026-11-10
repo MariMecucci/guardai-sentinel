@@ -4,6 +4,10 @@
 
 > **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. LLM integration requires a personal key and has **not** been live-tested in this deliverable.
 
+**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
+
+The public demo uses **static scanning only** by default. Gemini review remains opt-in and disabled in the hosted environment unless explicitly configured. The deployment URL was provided by the repository owner; availability and browser rendering have not been independently verified here.
+
 ## Why this project exists
 
 Security reviews often mix unverified model guesses with actual evidence. GuardAI Sentinel separates **deterministic findings** from **optional LLM suggestions**, provides source locations, documents uncertainty and forbids execution of uploaded code. It extends the ideas of [GuardAI, the DIO/Santander cybersecurity lab](https://github.com/MariMecucci/guardai-cybersecurity-agent) into a standalone AI engineering product.

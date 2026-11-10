@@ -8,8 +8,8 @@
 - [x] Optional Google Gemini adapter (code path implemented; live API not tested)
 - [x] Unit/integration tests and 32-case synthetic benchmark
 - [x] CI workflow configuration
-- [ ] Publish independent GitHub repository
-- [ ] Deploy public static-only demo
+- [x] Publish independent GitHub repository
+- [x] Deploy public static-only demo and verify two synthetic examples (see [validation](PUBLIC_DEMO_VALIDATION.md))
 
 ## Milestone 2 — Data engineering quality
 

@@ -6,7 +6,7 @@
 
 **Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
 
-The public demo uses **static scanning only** by default. Gemini review remains opt-in and disabled in the hosted environment unless explicitly configured. The deployment URL was provided by the repository owner; availability and browser rendering have not been independently verified here.
+The public demo uses **static scanning only** by default. Gemini review remains opt-in and disabled in the hosted environment unless explicitly configured. The repository owner verified the deployed UI with two browser smoke tests (vulnerable and parameterized Python examples). See [public demo validation](docs/PUBLIC_DEMO_VALIDATION.md). The hosted app has not been independently audited.
 
 ## Why this project exists
 

@@ -11,3 +11,13 @@ Validated locally during project preparation:
 - GitHub CI workflow **prepared**; CI will only run after the code is pushed to a repository.
 
 **Do not represent local tests as external deployment or LLM validation.**
+
+## Addendum — 2026-11-10: published CI and browser smoke tests
+
+- The independent repository is published at https://github.com/MariMecucci/guardai-sentinel.
+- The GitHub Actions validation workflow completed **successfully** on the initial application commit: https://github.com/MariMecucci/guardai-sentinel/actions/runs/42686841544.
+- The Streamlit demo is published at https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/.
+- The repository owner provided browser screenshots of the vulnerable example producing **1 high-severity pattern** and the parameterized example producing **0 findings**. See [public demo validation](PUBLIC_DEMO_VALIDATION.md).
+- **Gemini live API remains untested and disabled by default**; successful static results do not validate AI model behavior.
+
+The initial section above documents the project preparation state on 2026-11-09; this addendum records later validations without retroactively rewriting those observations.

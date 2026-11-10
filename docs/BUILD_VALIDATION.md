@@ -36,3 +36,9 @@ These observations demonstrate live API connectivity, authentication, and accept
 The repository owner supplied a screenshot of the **local** Streamlit app with both explicit Gemini consent checkboxes selected. The *Python — SQL vulnerável* synthetic example was analyzed using the static rules and the live Gemini integration. The app displayed one static finding (`PY-SQL-001`, high, line 6) and a separate **Revisão opcional Gemini** section with a generated Portuguese summary and defensive recommendations. No Gemini error was displayed in that run.
 
 This supersedes the earlier outstanding 'full security-review prompt remains to be verified' limitation for **this single synthetic example only**; it does not imply general LLM accuracy, production-grade security, model performance benchmarks, or public-hosted Gemini access. Full details in [LOCAL_GEMINI_VALIDATION.md](LOCAL_GEMINI_VALIDATION.md).
+
+## Addendum — 2026-11-10: local Gemini review of a parameterized example
+
+The repository owner supplied a second local Streamlit screenshot for the synthetic **Python — Consulta segura** example, with explicit consent to send the code to Gemini. The app showed **0 static findings**, **6 Python lines**, and a separate **Revisão opcional Gemini** response correctly recognizing bound SQL parameters. The model also offered context-dependent hardening recommendations, which are not proven vulnerabilities. The UI cautioned that 0 findings is not proof of safety. See [LOCAL_GEMINI_VALIDATION.md](LOCAL_GEMINI_VALIDATION.md).
+
+The two observed examples do **not** constitute an LLM quality benchmark. The public demo continues to have Gemini disabled by default.

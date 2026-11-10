@@ -2,7 +2,7 @@
 
 **AI-assisted AppSec & Data Engineering Code Review — an evidence-first portfolio MVP**
 
-> **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. On 2026-11-10, the repository owner successfully verified the full local, opt-in Gemini security-review workflow on a synthetic SQL injection example using `gemini-3.5-flash-lite`. The public deployment keeps AI disabled by default. See [local Gemini validation](docs/LOCAL_GEMINI_VALIDATION.md).
+> **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. On 2026-11-10, the repository owner successfully verified the full local, opt-in Gemini security-review workflow on two synthetic Python examples (vulnerable and parameterized) using `gemini-3.5-flash-lite`. The public deployment keeps AI disabled by default. See [local Gemini validation](docs/LOCAL_GEMINI_VALIDATION.md).
 
 **Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
 

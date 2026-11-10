@@ -21,3 +21,12 @@ Validated locally during project preparation:
 - **Gemini live API remains untested and disabled by default**; successful static results do not validate AI model behavior.
 
 The initial section above documents the project preparation state on 2026-11-09; this addendum records later validations without retroactively rewriting those observations.
+
+## Gemini API smoke tests — 2026-11-10
+
+The repository owner ran two private Gemini API diagnostics in the local Windows/VS Code environment using the model `gemini-3.5-flash-lite` and a personal API key held only in the terminal session. The owner supplied screenshots of both successful executions:
+
+- `python -m sentinel.diagnose_gemini`: **success**, simple response.
+- `python -m sentinel.diagnose_gemini --structured`: **success**, JSON-structured response.
+
+These observations demonstrate live API connectivity, authentication, and acceptance of a structured-output request with the tested model. They **do not yet establish** that the application's full security-review prompt succeeds, that Gemini's recommendations are accurate, or that Gemini is enabled in the public Streamlit demo. No API key or response payload is stored here.

@@ -89,7 +89,7 @@ Do **not** expose the API publicly without authentication, rate limiting, TLS an
 
 ```powershell
 $env:GEMINI_API_KEY = "PASTE_YOUR_KEY_LOCALLY_ONLY"
-$env:GEMINI_MODEL = "gemini-2.5-flash-lite"
+$env:GEMINI_MODEL = "gemini-3.5-flash-lite"
 $env:GUARDAI_ENABLE_AI = "1"
 streamlit run streamlit_app.py
 ```

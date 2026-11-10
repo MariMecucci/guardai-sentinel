@@ -6,7 +6,7 @@ import json
 import os
 from .models import Report
 
-DEFAULT_MODEL = "gemini-2.5-flash-lite"
+DEFAULT_MODEL = "gemini-3.5-flash-lite"
 
 
 def enhance_with_gemini(report: Report, source: str, *, api_key: str | None = None, model: str | None = None) -> Report:

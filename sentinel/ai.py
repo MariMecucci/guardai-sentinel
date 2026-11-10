@@ -32,22 +32,26 @@ def enhance_with_gemini(report: Report, source: str, *, api_key: str | None = No
         "<source>\n" + source[:30_000] + "\n</source>"
     )
     try:
-        response = genai.Client(api_key=key).models.generate_content(
-            model=selected_model,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                temperature=0.15,
-                response_mime_type="application/json",
-                response_schema={
-                    "type": "OBJECT",
-                    "properties": {
-                        "summary": {"type": "STRING"},
-                        "suggestions": {"type": "ARRAY", "items": {"type": "STRING"}},
+        # Keep the SDK client alive for the entire request. A temporary
+        # genai.Client(...).models.generate_content(...) may be garbage-
+        # collected while HTTPX is still using the underlying connection.
+        with genai.Client(api_key=key) as client:
+            response = client.models.generate_content(
+                model=selected_model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.15,
+                    response_mime_type="application/json",
+                    response_schema={
+                        "type": "OBJECT",
+                        "properties": {
+                            "summary": {"type": "STRING"},
+                            "suggestions": {"type": "ARRAY", "items": {"type": "STRING"}},
+                        },
+                        "required": ["summary", "suggestions"],
                     },
-                    "required": ["summary", "suggestions"],
-                },
-            ),
-        )
+                ),
+            )
         payload = json.loads(response.text or "{}")
         if not isinstance(payload.get("summary"), str) or not isinstance(payload.get("suggestions"), list):
             raise ValueError("Formato inesperado na resposta JSON")

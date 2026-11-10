@@ -8,6 +8,27 @@ from .models import Report
 
 DEFAULT_MODEL = "gemini-3.5-flash-lite"
 
+def safe_gemini_warning(exc: Exception) -> str:
+    """Expose only HTTP status/class, never raw remote errors or prompt text."""
+    code = getattr(exc, "code", None)
+    if type(code) is int and 400 <= code <= 599:
+        if code in (500, 502, 503, 504):
+            detail = f"HTTP {code}: falha temporária do servidor Gemini. Tente mais tarde."
+        elif code == 429:
+            detail = "HTTP 429: limite de chamadas/cota; confira sua cota no Google AI Studio."
+        elif code in (401, 403):
+            detail = f"HTTP {code}: autenticação ou acesso não autorizado; confira a chave e o projeto."
+        elif code == 404:
+            detail = "HTTP 404: modelo não disponível para esta chave ou endpoint."
+        elif code == 400:
+            detail = "HTTP 400: requisição rejeitada; confira o formato da entrada e do schema."
+        else:
+            detail = f"HTTP {code}: a API rejeitou a chamada."
+    else:
+        detail = f"{type(exc).__name__}: não foi possível concluir a requisição."
+    return f"Análise Gemini indisponível ({detail}); os achados estáticos continuam válidos."
+
+
 
 def enhance_with_gemini(report: Report, source: str, *, api_key: str | None = None, model: str | None = None) -> Report:
     key = api_key or os.getenv("GEMINI_API_KEY", "")
@@ -60,5 +81,5 @@ def enhance_with_gemini(report: Report, source: str, *, api_key: str | None = No
         report.model = selected_model
     except Exception as exc:
         # Avoid dumping SDK details or secret-bearing prompts to UI/logs.
-        report.warnings.append(f"Análise Gemini indisponível ({type(exc).__name__}); os achados estáticos continuam válidos.")
+        report.warnings.append(safe_gemini_warning(exc))
     return report

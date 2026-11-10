@@ -99,6 +99,23 @@ streamlit run streamlit_app.py
 
 **Security note:** do not upload private company code, credentials or PII to a public/free AI endpoint. No automated secret scrubber can guarantee removal of all sensitive data. Do not publish a public app with your own Gemini key enabled unless you've added identity, quotas, abuse controls and data handling consent.
 
+
+### Diagnóstico da API Gemini (sem expor sua chave)
+
+Caso o app mostre `Análise Gemini indisponível`, primeiro faça um teste mínimo no **mesmo terminal privado** em que configurou `GEMINI_API_KEY`, após interromper o Streamlit com Ctrl+C:
+
+```powershell
+.\.venv\Scripts\python.exe -m sentinel.diagnose_gemini
+```
+
+O teste faz **uma** chamada de texto sintético sem schema estruturado. Não imprime chave, mensagens do backend nem conteúdo do modelo. Se passar, confira especificamente o suporte a JSON estruturado com uma segunda chamada opcional:
+
+```powershell
+.\.venv\Scripts\python.exe -m sentinel.diagnose_gemini --structured
+```
+
+Se retornar **HTTP 500/503**, a falha é no serviço do Google; evite chamadas repetidas e tente mais tarde. Em **HTTP 429**, revise as cotas no AI Studio. Para investigar eventual problema específico do modelo, experimente manualmente `$env:GEMINI_MODEL = "gemini-2.5-flash-lite"` em uma **nova** chamada controlada, sem modificar a configuração padrão do projeto. Essas verificações não garantem disponibilidade futura nem correspondem a uma avaliação de qualidade da LLM.
+
 ## Evaluation: measured, not invented
 
 Run tests:

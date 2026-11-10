@@ -5,7 +5,7 @@ import types
 import unittest
 from unittest.mock import patch
 
-from sentinel.ai import enhance_with_gemini
+from sentinel.ai import enhance_with_gemini, safe_gemini_warning
 from sentinel.models import Report
 
 
@@ -68,6 +68,21 @@ class GeminiClientLifecycleTests(unittest.TestCase):
         self.assertEqual(result.ai_summary, "Consulta precisa ser parametrizada.")
         self.assertEqual(result.ai_suggestions, ["Use placeholders SQL."])
         self.assertEqual(result.warnings, [])
+
+    def test_safe_http_error_messages_do_not_leak_payload(self):
+        class FakeServerError(Exception):
+            def __init__(self, code):
+                self.code = code
+                super().__init__("sensitive API message secret-test-only")
+
+        warning = safe_gemini_warning(FakeServerError(503))
+        self.assertIn("HTTP 503", warning)
+        self.assertIn("temporária", warning)
+        self.assertNotIn("secret-test-only", warning)
+
+        warning = safe_gemini_warning(FakeServerError(429))
+        self.assertIn("HTTP 429", warning)
+        self.assertNotIn("secret-test-only", warning)
 
     def test_request_error_is_sanitized_and_client_is_closed(self):
         client = FakeClient(api_key="secret-test-only", fail=True)

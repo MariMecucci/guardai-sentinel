@@ -5,7 +5,7 @@
 - [x] Basic static Python AST rules and SQL string heuristics
 - [x] Streamlit local-first dashboard and JSON report
 - [x] FastAPI local endpoint
-- [x] Optional Google Gemini adapter (code path implemented; live API not tested)
+- [x] Optional Google Gemini adapter (live API and one end-to-end synthetic review validated privately on 2026-11-10)
 - [x] Unit/integration tests and 32-case synthetic benchmark
 - [x] CI workflow configuration
 - [x] Publish independent GitHub repository

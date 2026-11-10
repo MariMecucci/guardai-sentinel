@@ -30,3 +30,9 @@ The repository owner ran two private Gemini API diagnostics in the local Windows
 - `python -m sentinel.diagnose_gemini --structured`: **success**, JSON-structured response.
 
 These observations demonstrate live API connectivity, authentication, and acceptance of a structured-output request with the tested model. They **do not yet establish** that the application's full security-review prompt succeeds, that Gemini's recommendations are accurate, or that Gemini is enabled in the public Streamlit demo. No API key or response payload is stored here.
+
+## Addendum — 2026-11-10: end-to-end local Gemini review
+
+The repository owner supplied a screenshot of the **local** Streamlit app with both explicit Gemini consent checkboxes selected. The *Python — SQL vulnerável* synthetic example was analyzed using the static rules and the live Gemini integration. The app displayed one static finding (`PY-SQL-001`, high, line 6) and a separate **Revisão opcional Gemini** section with a generated Portuguese summary and defensive recommendations. No Gemini error was displayed in that run.
+
+This supersedes the earlier outstanding 'full security-review prompt remains to be verified' limitation for **this single synthetic example only**; it does not imply general LLM accuracy, production-grade security, model performance benchmarks, or public-hosted Gemini access. Full details in [LOCAL_GEMINI_VALIDATION.md](LOCAL_GEMINI_VALIDATION.md).

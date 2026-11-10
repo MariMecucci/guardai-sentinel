@@ -2,7 +2,7 @@
 
 **AI-assisted AppSec & Data Engineering Code Review — an evidence-first portfolio MVP**
 
-> **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. Gemini API connectivity and JSON structured-output requests were successfully smoke-tested by the repository owner on 2026-11-10 with a private key; the full security-review workflow remains to be verified.
+> **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. On 2026-11-10, the repository owner successfully verified the full local, opt-in Gemini security-review workflow on a synthetic SQL injection example using `gemini-3.5-flash-lite`. The public deployment keeps AI disabled by default. See [local Gemini validation](docs/LOCAL_GEMINI_VALIDATION.md).
 
 **Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
 
@@ -116,7 +116,7 @@ O teste faz **uma** chamada de texto sintético sem schema estruturado. Não imp
 
 Se retornar **HTTP 500/503**, a falha é no serviço do Google; evite chamadas repetidas e tente mais tarde. Em **HTTP 429**, revise as cotas no AI Studio. Para investigar eventual problema específico do modelo, experimente manualmente `$env:GEMINI_MODEL = "gemini-2.5-flash-lite"` em uma **nova** chamada controlada, sem modificar a configuração padrão do projeto. Essas verificações não garantem disponibilidade futura nem correspondem a uma avaliação de qualidade da LLM.
 
-**Gemini API validation (2026-11-10):** the repository owner ran successful live simple and structured-output API calls from a private local terminal. See [build validation](docs/BUILD_VALIDATION.md). The full vulnerability-analysis request remains unverified.
+**Gemini validation (2026-11-10):** successful live simple and structured-output API calls, followed by a successful **end-to-end local** Gemini review of the bundled synthetic SQL injection example, with static findings and separate LLM suggestions. See [validation record](docs/LOCAL_GEMINI_VALIDATION.md). The hosted public demo does not enable Gemini.
 
 ## Evaluation: measured, not invented
 

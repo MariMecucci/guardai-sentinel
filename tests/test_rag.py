@@ -2,6 +2,7 @@
 import unittest
 from sentinel.models import Finding
 from sentinel.rag import build_grounding_context, retrieve_for_findings
+from sentinel.service import analyze_code
 
 def finding(rule_id):
     return Finding(rule_id=rule_id, title="synthetic", severity="medium",
@@ -26,6 +27,19 @@ class GroundingTests(unittest.TestCase):
         self.assertIn("Nenhuma referência", build_grounding_context([]))
     def test_limit_zero(self):
         self.assertEqual(retrieve_for_findings([finding("PY-SQL-001")], limit=0), [])
+
+    def test_service_report_contains_grounded_sources(self):
+        source = 'query = f"SELECT * FROM users WHERE name={username}"'
+        report = analyze_code("synthetic.py", source).to_dict()
+        self.assertGreater(report["finding_count"], 0)
+        ids = [r["id"] for r in report["grounding_references"]]
+        self.assertIn("CWE-89", ids)
+        self.assertIsNone(report["ai_summary"])
+
+    def test_safe_sample_does_not_claim_sources(self):
+        source = "cursor.execute('SELECT * FROM users WHERE id=?', (user_id,))"
+        report = analyze_code("synthetic.py", source).to_dict()
+        self.assertEqual(report["grounding_references"], [])
 
 if __name__ == "__main__":
     unittest.main()

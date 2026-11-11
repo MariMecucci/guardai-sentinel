@@ -20,7 +20,8 @@ The scanner is **not** a production SAST replacement. It detects a limited set o
 - **Python static rules:** AST-based indicators of dynamic SQL construction and `subprocess(..., shell=True)`.
 - **SQL static rules:** suspicious template placeholders in query files; not a SQL parser.
 - **Evidence:** rule IDs, line references, confidence, explanation, mitigation and authoritative links.
-- **Optional AI:** Google Gemini can generate a Portuguese-language contextual summary; output is **clearly separate** from verified rule findings.
+- **Optional AI:** Google Gemini can generate a Portuguese-language contextual summary grounded in locally curated OWASP/CWE/Python reference summaries; output is **clearly separate** from verified rule findings.
+- **Offline retrieval v1:** rule-ID-based curated references, surfaced independently in JSON/UI (no embeddings, vector index, or remote document fetch). See [RAG v1 limitations](docs/RAG_V1.md).
 - **FastAPI:** `/health` and `/analyze` JSON endpoints for local integration.
 - **Testing:** deterministic unit/API tests plus a hand-labeled synthetic evaluation dataset.
 - **Free-first:** all local static functionality works without an API key or paid services.
@@ -145,7 +146,7 @@ The synthetic dataset is deliberately tiny and includes known unsupported patter
 - Dynamic `str.format`, `%` interpolation, taint propagation and inter-file flow are not fully handled.
 - SQL template detection is heuristic; SQL syntax varies by engine.
 - Severity is rule-level triage, not an environment-specific CVSS score.
-- The MVP is **not RAG** and **not a multi-agent system**. Those are planned extensions.
+- RAG v1 is **deterministic rule-to-reference retrieval**, not semantic/vector RAG. No passage-level grounding evaluation or multi-agent system is implemented.
 - No user accounts, permanent upload storage or code execution.
 
 ## Repository structure
@@ -175,7 +176,7 @@ The **Streamlit** app is designed to run on [Streamlit Community Cloud](https://
 
 **MVP (implemented):** static scanning, UI, optional LLM adapter, local API, benchmark and CI configuration.
 
-**Next:** private evaluation of Gemini responses, OWASP-referenced RAG with citation checks, SQL dialect-aware analysis, stronger taint detection, abuse controls and CI-based quality gates. See [ROADMAP](docs/ROADMAP.md).
+**Next:** evaluate Gemini faithfulness, add versioned OWASP/CWE passages and citation checks, SQL dialect-aware analysis, stronger taint detection, abuse controls and CI-based quality gates. See [ROADMAP](docs/ROADMAP.md).
 
 ## Credits
 
@@ -185,4 +186,4 @@ Created as an independent portfolio continuation of [GuardAI — DIO/Santander C
 
 ### Resumo em português
 
-O GuardAI Sentinel é um produto de portfólio com **scanner estático de Python/SQL**, dashboard Streamlit, API FastAPI e **revisão opcional via Gemini**. A análise local não usa créditos de IA. O projeto inclui testes automatizados, um benchmark sintético reproduzível e documentação de riscos e limitações. É um demonstrador educacional, não uma auditoria profissional nem uma ferramenta de exploração.
+O GuardAI Sentinel é um produto de portfólio com **scanner estático de Python/SQL**, dashboard Streamlit, API FastAPI, recuperação local de referências OWASP/CWE por regra e **revisão opcional via Gemini**. A análise local não usa créditos de IA. O projeto inclui testes automatizados, um benchmark sintético reproduzível e documentação de riscos e limitações. É um demonstrador educacional, não uma auditoria profissional nem uma ferramenta de exploração.

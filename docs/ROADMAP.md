@@ -20,8 +20,10 @@
 
 ## Milestone 3 — Grounded AI engineering
 
-- [ ] Curated OWASP/CWE documents with attribution and versions
-- [ ] Retrieval-augmented explanations citing retrieved passages
+- [x] Initial curated OWASP/CWE/Python summaries, deterministic rule-based retrieval, and attribution (offline prototype; no versioned source passages yet)
+- [ ] Versioned source passages with document provenance and independent validation
+- [x] Feed curated reference context into opt-in Gemini and display independently selected links
+- [ ] Passage-level citations with faithfulness validation
 - [ ] Hallucination and evidence-faithfulness evaluation
 - [ ] Compare Gemini models, latency, cost and quality on controlled examples
 

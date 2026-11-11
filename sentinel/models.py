@@ -31,6 +31,7 @@ class Report:
     model: str | None = None
     ai_summary: str | None = None
     ai_suggestions: list[str] = field(default_factory=list)
+    grounding_references: list[dict] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
@@ -43,6 +44,7 @@ class Report:
             "model": self.model,
             "ai_summary": self.ai_summary,
             "ai_suggestions": list(self.ai_suggestions),
+            "grounding_references": list(self.grounding_references),
             "warnings": list(self.warnings),
             "disclaimer": "Triagem estática educacional, não uma auditoria nem prova de ausência de vulnerabilidades.",
         }

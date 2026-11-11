@@ -21,6 +21,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Deterministic benchmark
         run: python -m sentinel.evaluate --output evaluation-results.json
+      - name: RAG retrieval fixture metrics
+        run: python -m sentinel.evaluate_retrieval
       - name: Static CLI smoke test
         run: python -m sentinel.cli examples/vulnerable_login.py
       - name: Upload evaluation artifact

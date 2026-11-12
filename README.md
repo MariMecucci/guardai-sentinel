@@ -4,9 +4,17 @@
 
 > **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. On 2026-11-10, the repository owner successfully verified the full local, opt-in Gemini security-review workflow on two synthetic Python examples (vulnerable and parameterized) using `gemini-3.5-flash-lite`. The public deployment keeps AI disabled by default. See [local Gemini validation](docs/LOCAL_GEMINI_VALIDATION.md).
 
-**Local v2 validation (2026-11-12):** Windows/Python 3.11.9 smoke tests showed 40 passing unit/API checks, synthetic BM25 retrieval, a correct rule-level finding on the bundled vulnerable Python example, zero findings on the parameterized sample, and a real opt-in Gemini response with retrieved reference context. See [local BM25 + Gemini validation](docs/LOCAL_RAG_V2_VALIDATION.md). This is a limited smoke test, not a production accuracy or LLM-fidelity benchmark.\n\n**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
+**Local v2 validation (2026-11-12):** Windows/Python 3.11.9 validation showed 42 passing unit/API checks, synthetic BM25 retrieval, a correct rule-level finding on the bundled vulnerable Python example, zero findings on the parameterized sample, and a real opt-in Gemini response with retrieved reference context. See [local BM25 + Gemini validation](docs/LOCAL_RAG_V2_VALIDATION.md). This is a limited smoke test, not a production accuracy or LLM-fidelity benchmark.
+
+**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
 
 The public demo uses **static scanning only** by default. Gemini review remains opt-in and disabled in the hosted environment unless explicitly configured. The repository owner verified the deployed UI with two browser smoke tests (vulnerable and parameterized Python examples). See [public demo validation](docs/PUBLIC_DEMO_VALIDATION.md). The hosted app has not been independently audited.
+
+### Review the project in 60 seconds
+
+1. **Try the hosted scanner:** open the live Streamlit demo, select **Python — SQL vulnerável**, click **Analisar código**, and inspect the findings and BM25 passages. Then try **Python — Consulta segura** to see the no-finding case.
+2. **Inspect the engineering:** see [retrieval architecture and limitations](docs/RETRIEVAL_V2.md), [evaluation protocol](docs/EVALUATION.md), [observed local Gemini/BM25 validation](docs/LOCAL_RAG_V2_VALIDATION.md), and [automated tests](tests/).
+3. **AI availability:** Gemini was tested with authorized synthetic examples locally. The hosted demo intentionally disables public Gemini calls to protect private API keys and limit abuse.
 
 ## Why this project exists
 
@@ -34,9 +42,12 @@ flowchart TD
     C[FastAPI local JSON API] --> B
     B --> D[Static rule engine]
     D --> E[Evidence-based report]
+    D --> R[Rule-filtered offline BM25 retrieval]
+    R --> E
     B --> F{AI explicitly enabled and approved?}
     F -- No --> E
     F -- Yes --> G[Google Gemini API — optional]
+    R --> G
     G --> H[Separate, unverified AI summary]
     H --> E
     E --> I[JSON download / dashboard]
@@ -47,7 +58,7 @@ flowchart TD
 ## Run locally (Windows / PowerShell)
 
 ```powershell
-py -m venv .venv
+py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 streamlit run streamlit_app.py
@@ -60,8 +71,8 @@ On macOS/Linux, activate via `source .venv/bin/activate` and use `python3`.
 ### Command-line analysis (no dependencies)
 
 ```powershell
-py -m sentinel.cli examples/vulnerable_login.py
-py -m sentinel.cli examples/secure_login.py
+.\.venv\Scripts\python.exe -m sentinel.cli examples/vulnerable_login.py
+.\.venv\Scripts\python.exe -m sentinel.cli examples/secure_login.py
 ```
 
 ### FastAPI (local integration)
@@ -124,11 +135,12 @@ Se retornar **HTTP 500/503**, a falha é no serviço do Google; evite chamadas r
 Run tests:
 
 ```powershell
-py -m unittest discover -s tests -v
-py -m sentinel.evaluate --output docs/benchmark-results.json
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m sentinel.evaluate --output docs/benchmark-results.json
+.\.venv\Scripts\python.exe -m sentinel.evaluate_retrieval
 ```
 
-The local prototype passed **22 automated unit/integration tests** in the authoring environment. The baseline scanner was evaluated on **32 hand-labeled synthetic snippets**, yielding:
+The repository passed **42 automated unit/integration tests** on the Windows/Python 3.11.9 validation run (2026-11-12). The baseline scanner was evaluated on **32 hand-labeled synthetic snippets**, yielding:
 
 | Metric | Measured result |
 | --- | ---: |
@@ -159,10 +171,14 @@ sentinel/
   ai.py           # optional Gemini review
   api.py          # FastAPI application
   cli.py          # CLI
-  evaluate.py     # benchmark runner
+  retrieval.py    # offline BM25 retrieval
+  knowledge/      # versioned editorial security passages
+  evaluate.py     # static scanner benchmark
+  evaluate_retrieval.py  # synthetic retrieval evaluation
 streamlit_app.py  # web app
 examples/         # synthetic samples and labeled benchmark
   benchmark_cases.json
+  rag_relevance_cases.json
 tests/            # automated unit and API tests
 docs/             # methodology, security and roadmap
 .github/workflows/test.yml

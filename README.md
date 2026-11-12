@@ -4,7 +4,7 @@
 
 > **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. On 2026-11-10, the repository owner successfully verified the full local, opt-in Gemini security-review workflow on two synthetic Python examples (vulnerable and parameterized) using `gemini-3.5-flash-lite`. The public deployment keeps AI disabled by default. See [local Gemini validation](docs/LOCAL_GEMINI_VALIDATION.md).
 
-**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
+**Local v2 validation (2026-11-12):** Windows/Python 3.11.9 smoke tests showed 40 passing unit/API checks, synthetic BM25 retrieval, a correct rule-level finding on the bundled vulnerable Python example, zero findings on the parameterized sample, and a real opt-in Gemini response with retrieved reference context. See [local BM25 + Gemini validation](docs/LOCAL_RAG_V2_VALIDATION.md). This is a limited smoke test, not a production accuracy or LLM-fidelity benchmark.\n\n**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
 
 The public demo uses **static scanning only** by default. Gemini review remains opt-in and disabled in the hosted environment unless explicitly configured. The repository owner verified the deployed UI with two browser smoke tests (vulnerable and parameterized Python examples). See [public demo validation](docs/PUBLIC_DEMO_VALIDATION.md). The hosted app has not been independently audited.
 

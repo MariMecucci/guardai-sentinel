@@ -26,7 +26,7 @@ The application rendered static scanner evidence, retrieved BM25 summaries, refe
 
 ## Follow-up before broader claims
 
-1. Validate that prompt construction includes BM25 passage IDs with an offline fake Gemini client test.
+1. Maintain the offline fake Gemini-client regression test verifying BM25 passage IDs in the prompt (added after this observed validation).
 2. Independently verify editorial passage text against upstream documentation and archive source revision identifiers.
 3. Keep public Gemini calls off without authentication, quotas, privacy constraints and abuse controls.
 4. Consider private further tests on synthetic safe and ambiguous cases and independently label results.

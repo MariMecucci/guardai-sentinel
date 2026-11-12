@@ -103,6 +103,14 @@ with scan_tab:
                     st.write("**Correção:**", finding["remediation"])
                     if finding["reference"]:
                         st.link_button("Referência técnica", finding["reference"])
+            if report.get("retrieved_passages"):
+                st.subheader("Trechos recuperados (BM25 local)")
+                st.caption("Resumos editoriais versionados, não citações literais. Recuperação não valida alegações da IA.")
+                for passage in report["retrieved_passages"]:
+                    with st.expander(f"{passage['id']} — {passage['title']}"):
+                        st.write(passage["text"])
+                        st.caption(f"Versão editorial: {passage['source_version']}")
+                        st.link_button("Ler referência original", passage["url"])
             if report.get("grounding_references"):
                 st.subheader("Referências recuperadas (base local)")
                 st.caption("Selecionadas por regras do scanner, não pela IA. Os resumos não comprovam exploração nem validam a resposta do modelo.")
@@ -138,9 +146,9 @@ with info_tab:
     2. **Inspeção local:** regras AST (Python) e heurísticas SQL identificam padrões suspeitos.
     3. **Evidências:** resultado inclui regra, localização, explicação, recomendação e confiança.
     4. **Gemini opcional:** só roda com configuração local explícita e consentimento no uso da interface.
-    5. **Fundamentação:** referências curadas OWASP/CWE/Python associadas às regras detectadas; a IA recebe esses resumos somente com opt-in.\n    6. **Avaliação:** suíte sintética rotulada e métricas de precisão/recall/F1 separadas do modelo de IA.
+    5. **Fundamentação:** passagens editoriais OWASP/CWE/Python ranqueadas por BM25, a partir de regras detectadas; a IA recebe esses resumos somente com opt-in.\n    6. **Avaliação:** suíte sintética rotulada e métricas de precisão/recall/F1 separadas do modelo de IA.
 
-    **Limitações:** regras limitadas, falsos positivos e falsos negativos possíveis, sem execução de código, sem auditoria completa, com recuperação documental local por regra (sem embeddings ou busca vetorial).
+    **Limitações:** regras limitadas, falsos positivos e falsos negativos possíveis, sem execução de código, sem auditoria completa, com BM25 local por relevância e corpus editorial versionado (sem embeddings ou busca vetorial).
     """)
     st.markdown("**Referências:** [OWASP SQL Injection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) · [MITRE CWE](https://cwe.mitre.org/)")
 

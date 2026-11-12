@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "name": "sql injection",
+      "rules": [
+        "PY-SQL-001"
+      ],
+      "k": 5,
+      "relevant_ids": [
+        "OWASP-SQLI-PARAM-v1",
+        "OWASP-SQLI-VALIDATION-v1",
+        "CWE89-QUERY-v1"
+      ]
+    },
+    {
+      "name": "sql templating",
+      "rules": [
+        "SQL-TEMPLATE-001"
+      ],
+      "k": 5,
+      "relevant_ids": [
+        "OWASP-SQLI-PARAM-v1",
+        "OWASP-SQLI-VALIDATION-v1",
+        "CWE89-QUERY-v1"
+      ]
+    },
+    {
+      "name": "shell execution",
+      "rules": [
+        "PY-SHELL-002"
+      ],
+      "k": 5,
+      "relevant_ids": [
+        "PYTHON-SUBPROCESS-ARGS-v1",
+        "CWE78-COMMAND-v1"
+      ]
+    },
+    {
+      "name": "no findings",
+      "rules": [],
+      "k": 3,
+      "relevant_ids": []
+    },
+    {
+      "name": "unsupported rule",
+      "rules": [
+        "FUTURE-RULE"
+      ],
+      "k": 3,
+      "relevant_ids": []
+    }
+  ]
+}

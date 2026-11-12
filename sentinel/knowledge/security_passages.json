@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "curated_at": "2026-11-11",
+  "note": "Original editorial paraphrases. They are not direct quotations, nor synchronized snapshots of external pages. Review against upstream sources before relying on them.",
+  "passages": [
+    {
+      "id": "OWASP-SQLI-PARAM-v1",
+      "source_id": "OWASP-SQLI-PREVENTION",
+      "source_title": "OWASP SQL Injection Prevention Cheat Sheet",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+      "source_version": "editorial-summary-2026-11-11",
+      "topics": [
+        "sql",
+        "injection",
+        "parameterized",
+        "prepared",
+        "bound",
+        "query"
+      ],
+      "rule_ids": [
+        "PY-SQL-001",
+        "SQL-TEMPLATE-001"
+      ],
+      "text": "SQL injection risk arises when data is combined with SQL command syntax. Use prepared statements and bound parameters to keep values separate from the SQL structure; assess whether inputs are externally influenced."
+    },
+    {
+      "id": "OWASP-SQLI-VALIDATION-v1",
+      "source_id": "OWASP-SQLI-PREVENTION",
+      "source_title": "OWASP SQL Injection Prevention Cheat Sheet",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+      "source_version": "editorial-summary-2026-11-11",
+      "topics": [
+        "sql",
+        "validation",
+        "allowlist",
+        "identifiers",
+        "query"
+      ],
+      "rule_ids": [
+        "PY-SQL-001",
+        "SQL-TEMPLATE-001"
+      ],
+      "text": "When SQL identifiers cannot be bound as parameters, validate them against a strict allowlist. Input validation can provide defense in depth but is not a substitute for parameterizing SQL values."
+    },
+    {
+      "id": "CWE89-QUERY-v1",
+      "source_id": "CWE-89",
+      "source_title": "MITRE CWE-89",
+      "source_url": "https://cwe.mitre.org/data/definitions/89.html",
+      "source_version": "editorial-summary-2026-11-11",
+      "topics": [
+        "sql",
+        "query",
+        "injection",
+        "dynamic",
+        "interpolation"
+      ],
+      "rule_ids": [
+        "PY-SQL-001",
+        "SQL-TEMPLATE-001"
+      ],
+      "text": "Improper handling of special elements in SQL commands can permit unintended modification of a query. A dynamic query is an indicator requiring investigation, not by itself proof of an exploitable vulnerability."
+    },
+    {
+      "id": "PYTHON-SUBPROCESS-ARGS-v1",
+      "source_id": "PYTHON-SUBPROCESS",
+      "source_title": "Python subprocess security considerations",
+      "source_url": "https://docs.python.org/3/library/subprocess.html#security-considerations",
+      "source_version": "editorial-summary-2026-11-11",
+      "topics": [
+        "python",
+        "shell",
+        "subprocess",
+        "command",
+        "arguments"
+      ],
+      "rule_ids": [
+        "PY-SHELL-002"
+      ],
+      "text": "With Python subprocess calls, an argument list and shell=False usually avoid routing a command through a shell. When shell=True is needed, assess shell quoting and whether command parts can come from untrusted input."
+    },
+    {
+      "id": "CWE78-COMMAND-v1",
+      "source_id": "CWE-78",
+      "source_title": "MITRE CWE-78",
+      "source_url": "https://cwe.mitre.org/data/definitions/78.html",
+      "source_version": "editorial-summary-2026-11-11",
+      "topics": [
+        "shell",
+        "command",
+        "injection",
+        "untrusted",
+        "os"
+      ],
+      "rule_ids": [
+        "PY-SHELL-002"
+      ],
+      "text": "OS command injection may arise when external input influences shell command construction. Verify the input source, dataflow, and execution context before concluding exploitation is possible."
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 > **Status:** runnable local-first MVP. Python/SQL static analysis, a Streamlit dashboard, optional Gemini review, a FastAPI JSON API, unit/API tests and a small reproducible benchmark. On 2026-11-10, the repository owner successfully verified the full local, opt-in Gemini security-review workflow on two synthetic Python examples (vulnerable and parameterized) using `gemini-3.5-flash-lite`. The public deployment keeps AI disabled by default. See [local Gemini validation](docs/LOCAL_GEMINI_VALIDATION.md).
 
-**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
+**Local v2 validation (2026-11-12):** Windows/Python 3.11.9 smoke tests showed 40 passing unit/API checks, synthetic BM25 retrieval, a correct rule-level finding on the bundled vulnerable Python example, zero findings on the parameterized sample, and a real opt-in Gemini response with retrieved reference context. See [local BM25 + Gemini validation](docs/LOCAL_RAG_V2_VALIDATION.md). This is a limited smoke test, not a production accuracy or LLM-fidelity benchmark.\n\n**Live demo (Streamlit Community Cloud):** [Open GuardAI Sentinel](https://guardai-sentinel-sjpa8g326gtpaywtttcp8c.streamlit.app/)
 
 The public demo uses **static scanning only** by default. Gemini review remains opt-in and disabled in the hosted environment unless explicitly configured. The repository owner verified the deployed UI with two browser smoke tests (vulnerable and parameterized Python examples). See [public demo validation](docs/PUBLIC_DEMO_VALIDATION.md). The hosted app has not been independently audited.
 
@@ -21,7 +21,7 @@ The scanner is **not** a production SAST replacement. It detects a limited set o
 - **SQL static rules:** suspicious template placeholders in query files; not a SQL parser.
 - **Evidence:** rule IDs, line references, confidence, explanation, mitigation and authoritative links.
 - **Optional AI:** Google Gemini can generate a Portuguese-language contextual summary grounded in locally curated OWASP/CWE/Python reference summaries; output is **clearly separate** from verified rule findings.
-- **Offline retrieval v1:** rule-ID-based curated references, surfaced independently in JSON/UI (no embeddings, vector index, or remote document fetch). See [RAG v1 limitations](docs/RAG_V1.md).
+- **Offline retrieval v2:** rule-filtered BM25 ranking over a versioned corpus of author-written OWASP/CWE/Python summaries, surfaced in JSON/UI and provided to opt-in Gemini (no embeddings or external document ingestion). See [Retrieval v2](docs/RETRIEVAL_V2.md) and [RAG v1](docs/RAG_V1.md).
 - **FastAPI:** `/health` and `/analyze` JSON endpoints for local integration.
 - **Testing:** deterministic unit/API tests plus a hand-labeled synthetic evaluation dataset.
 - **Free-first:** all local static functionality works without an API key or paid services.
@@ -146,7 +146,7 @@ The synthetic dataset is deliberately tiny and includes known unsupported patter
 - Dynamic `str.format`, `%` interpolation, taint propagation and inter-file flow are not fully handled.
 - SQL template detection is heuristic; SQL syntax varies by engine.
 - Severity is rule-level triage, not an environment-specific CVSS score.
-- RAG v1 is **deterministic rule-to-reference retrieval**, not semantic/vector RAG. No passage-level grounding evaluation or multi-agent system is implemented.
+- RAG v2 uses **local lexical BM25 retrieval over editorial summaries**, not semantic embeddings/vector search. No model-claim faithfulness evaluation or multi-agent system is implemented.
 - No user accounts, permanent upload storage or code execution.
 
 ## Repository structure
@@ -176,7 +176,7 @@ The **Streamlit** app is designed to run on [Streamlit Community Cloud](https://
 
 **MVP (implemented):** static scanning, UI, optional LLM adapter, local API, benchmark and CI configuration.
 
-**Next:** evaluate Gemini faithfulness, add versioned OWASP/CWE passages and citation checks, SQL dialect-aware analysis, stronger taint detection, abuse controls and CI-based quality gates. See [ROADMAP](docs/ROADMAP.md).
+**Next:** evaluate Gemini faithfulness, independently verify versioned source excerpts and citation checks, SQL dialect-aware analysis, stronger taint detection, abuse controls and CI-based quality gates. See [ROADMAP](docs/ROADMAP.md).
 
 ## Credits
 

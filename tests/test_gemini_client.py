@@ -16,6 +16,7 @@ class FakeClient:
         self.entered = False
         self.exited = False
         self.requested_model = None
+        self.requested_contents = None
         self.models = self
 
     def __enter__(self):
@@ -30,6 +31,7 @@ class FakeClient:
         if not self.entered or self.exited:
             raise RuntimeError("HTTP client already closed")
         self.requested_model = model
+        self.requested_contents = contents
         if self.fail:
             raise RuntimeError("test error with sensitive key: secret-test-only")
         return types.SimpleNamespace(text=json.dumps({
@@ -68,6 +70,28 @@ class GeminiClientLifecycleTests(unittest.TestCase):
         self.assertEqual(result.ai_summary, "Consulta precisa ser parametrizada.")
         self.assertEqual(result.ai_suggestions, ["Use placeholders SQL."])
         self.assertEqual(result.warnings, [])
+
+    def test_bm25_passages_reach_opt_in_gemini_prompt(self):
+        from sentinel.static import scan_code
+        source = 'query = f"SELECT * FROM users WHERE name={username}"'
+        client = FakeClient(api_key="synthetic-test-key")
+        report = scan_code("example.py", source)
+        with self.fake_sdk(client):
+            enhanced = enhance_with_gemini(report, source, api_key="synthetic-test-key")
+        self.assertTrue(client.exited)
+        self.assertIn("PASSAGENS RECUPERADAS", client.requested_contents)
+        self.assertIn("[OWASP-SQLI-PARAM-v1]", client.requested_contents)
+        self.assertTrue(enhanced.retrieved_passages)
+
+    def test_safe_sample_prompt_abstains_from_document_support(self):
+        from sentinel.static import scan_code
+        source = "cursor.execute('SELECT id FROM users WHERE id=?', (user_id,))"
+        client = FakeClient(api_key="synthetic-test-key")
+        report = scan_code("example.py", source)
+        with self.fake_sdk(client):
+            enhanced = enhance_with_gemini(report, source, api_key="synthetic-test-key")
+        self.assertEqual(enhanced.retrieved_passages, [])
+        self.assertIn("Nenhum trecho documental curado foi recuperado", client.requested_contents)
 
     def test_safe_http_error_messages_do_not_leak_payload(self):
         class FakeServerError(Exception):
